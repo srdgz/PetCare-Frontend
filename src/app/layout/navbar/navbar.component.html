@@ -1,0 +1,159 @@
+<!-- Navbar Superior -->
+<nav
+  class="flex justify-between items-center p-4 bg-secondary dark:bg-dark-background text-primary dark:text-dark-primary lg:hidden"
+>
+  <div class="flex items-center">
+    <span class="text-2xl font-bold">PetCare</span>
+  </div>
+  <button
+    class="inline-flex items-center p-2 text-sm rounded-lg lg:hidden"
+    aria-controls="dropdown-menu"
+    (click)="toggleDropdown()"
+  >
+    <fa-icon [icon]="['fas', 'bars']" class="text-xl"></fa-icon>
+  </button>
+  <div
+    *ngIf="isDropdownOpen"
+    id="dropdown-menu"
+    class="absolute right-4 mt-80 w-52 bg-secondary rounded-lg shadow-lg dark:bg-dark-background z-10"
+  >
+    <ul class="py-4">
+      <li class="flex justify-end me-4 mb-2">
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            class="sr-only peer"
+            [checked]="isDarkMode"
+            (change)="toggleTheme()"
+          />
+          <div
+            class="w-11 h-6 bg-primary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer dark:peer-focus:ring-dark-secondary dark:bg-gray-700 peer-checked:bg-primary dark:peer-checked:bg-dark-secondary transition-all duration-300"
+          ></div>
+          <span
+            class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full peer-checked:translate-x-full peer-checked:border-white transition-transform duration-300 flex items-center justify-center"
+          >
+            <fa-icon
+              *ngIf="!isDarkMode"
+              [icon]="['fas', 'sun']"
+              class="text-text"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="isDarkMode"
+              [icon]="['fas', 'moon']"
+              class="text-text"
+            ></fa-icon>
+          </span>
+        </label>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="block px-4 py-2 text-text font-semibold hover:bg-primary dark:text-dark-text dark:hover:bg-dark-secondary"
+          (click)="closeDropdown()"
+          >Inicio</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="block px-4 py-2 text-text font-semibold hover:bg-primary dark:text-dark-text dark:hover:bg-dark-secondary"
+          (click)="closeDropdown()"
+          >Mis mascotas</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="block px-4 py-2 text-text font-semibold hover:bg-primary dark:text-dark-text dark:hover:bg-dark-secondary"
+          (click)="closeDropdown()"
+          >Configuración</a
+        >
+      </li>
+      <li>
+        <button
+          class="block px-4 py-2 text-text font-semibold hover:bg-primary dark:text-dark-text dark:hover:bg-dark-secondary"
+          (click)="closeDropdown()"
+        >
+          Cerrar sesión
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<aside
+  *ngIf="isLargeScreen"
+  class="flex flex-col h-screen z-40 w-64 bg-secondary dark:bg-dark-background transition-transform pb-24"
+>
+  <div class="flex items-center justify-between p-4 mb-4">
+    <h1 class="text-2xl font-bold text-primary dark:text-dark-primary">
+      PetCare
+    </h1>
+  </div>
+  <div class="flex-1 p-4">
+    <ul class="space-y-2 font-medium">
+      <li>
+        <a
+          href="#"
+          class="flex items-center p-2 text-text dark:text-dark-text rounded-lg hover:bg-primary dark:hover:bg-dark-primary transition duration-200"
+        >
+          <fa-icon [icon]="['fas', 'home']"></fa-icon>
+          <span class="ms-3">Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="flex items-center p-2 text-text dark:text-dark-text rounded-lg hover:bg-primary dark:hover:bg-dark-primary transition duration-200"
+        >
+          <fa-icon [icon]="['fas', 'paw']"></fa-icon>
+          <span class="flex-1 ms-3">Mis mascotas</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="flex items-center p-2 text-text dark:text-dark-text rounded-lg hover:bg-primary dark:hover:bg-dark-primary transition duration-200"
+        >
+          <fa-icon [icon]="['fas', 'gear']"></fa-icon>
+          <span class="flex-1 ms-3">Configuración</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="p-4">
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        class="sr-only peer"
+        [checked]="isDarkMode"
+        (change)="toggleTheme()"
+      />
+      <div
+        class="w-11 h-6 bg-primary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer dark:peer-focus:ring-dark-secondary dark:bg-gray-700 peer-checked:bg-primary dark:peer-checked:bg-dark-secondary transition-all duration-300"
+      ></div>
+      <span
+        class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full peer-checked:translate-x-full peer-checked:border-white transition-transform duration-300 flex items-center justify-center"
+      >
+        <fa-icon
+          *ngIf="!isDarkMode"
+          [icon]="['fas', 'sun']"
+          class="text-text"
+        ></fa-icon>
+        <fa-icon
+          *ngIf="isDarkMode"
+          [icon]="['fas', 'moon']"
+          class="text-text"
+        ></fa-icon>
+      </span>
+    </label>
+  </div>
+  <div class="p-4 mt-4">
+    <button
+      class="w-full py-2 px-4 text-white bg-primary dark:bg-dark-secondary rounded-lg transition duration-200"
+    >
+      Cerrar sesión
+    </button>
+  </div>
+</aside>

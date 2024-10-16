@@ -8,29 +8,18 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Definir colores para el tema claro
-        primary: {
-          light: "#4ade80",
-          DEFAULT: "#16a34a",
-          dark: "#166534",
-        },
-        secondary: {
-          light: "#60a5fa",
-          DEFAULT: "#3b82f6",
-          dark: "#1e3a8a",
-        },
-        // Definir colores para el tema oscuro
+        // Colores para el tema claro
+        background: "#ffffff",
+        text: "#333333",
+        primary: "#1C7C54",
+        secondary: "#ECC8AF",
+
+        // Colores para el tema oscuro (usando 'dark:' para especificar el modo oscuro)
         dark: {
-          primary: {
-            light: "#8b5cf6",
-            DEFAULT: "#7c3aed",
-            dark: "#6b21a8",
-          },
-          secondary: {
-            light: "#fbbf24",
-            DEFAULT: "#f59e0b",
-            dark: "#b45309",
-          },
+          background: "#0D1F22",
+          text: "#ffffff",
+          primary: "#F4D35E",
+          secondary: "#87BCDE",
         },
       },
     },
