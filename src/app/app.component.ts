@@ -6,13 +6,12 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fontAwesomeIcons } from './shared/font-awesome-icons';
-import { NavbarComponent } from './layout/navbar/navbar.component';
-import { FooterComponent } from './layout/footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FontAwesomeModule, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, FontAwesomeModule, LoginComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

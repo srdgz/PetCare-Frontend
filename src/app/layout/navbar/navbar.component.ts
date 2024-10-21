@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,8 @@ export class NavbarComponent implements OnInit {
   isSidebarOpen = false;
   isDropdownOpen = false;
   isLargeScreen = false;
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.checkScreenSize();
@@ -55,5 +58,16 @@ export class NavbarComponent implements OnInit {
 
   closeDropdown(): void {
     this.isDropdownOpen = false;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+    console.log('Logged out and redirected to login');
+  }
+
+  logoutAndCloseDropdown() {
+    this.logout();
+    this.closeDropdown();
   }
 }

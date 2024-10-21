@@ -3,7 +3,7 @@
   class="flex justify-between items-center p-4 bg-secondary dark:bg-dark-background text-primary dark:text-dark-primary lg:hidden"
 >
   <div class="flex items-center">
-    <span class="text-2xl font-bold">PetCare</span>
+    <span class="text-2xl font-bold">PetCalendar</span>
   </div>
   <button
     class="inline-flex items-center p-2 text-sm rounded-lg lg:hidden"
@@ -72,7 +72,7 @@
       <li>
         <button
           class="block px-4 py-2 text-text font-semibold hover:bg-primary dark:text-dark-text dark:hover:bg-dark-secondary"
-          (click)="closeDropdown()"
+          (click)="logoutAndCloseDropdown()"
         >
           Cerrar sesión
         </button>
@@ -88,7 +88,7 @@
 >
   <div class="flex items-center justify-between p-4 mb-4">
     <h1 class="text-2xl font-bold text-primary dark:text-dark-primary">
-      PetCare
+      PetCalendar
     </h1>
   </div>
   <div class="flex-1 p-4">
@@ -152,6 +152,7 @@
   <div class="p-4 mt-4">
     <button
       class="w-full py-2 px-4 text-white bg-primary dark:bg-dark-secondary rounded-lg transition duration-200"
+      (click)="logout()"
     >
       Cerrar sesión
     </button>
