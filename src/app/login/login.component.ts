@@ -9,16 +9,18 @@ import {
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
+  passwordVisible: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,5 +49,9 @@ export class LoginComponent {
         },
       });
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

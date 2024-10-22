@@ -1,46 +1,110 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-    <h2 class="text-2xl font-bold text-center text-gray-800">Pet Calendar</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-      <div
-        *ngIf="errorMessage"
-        class="p-2 text-sm text-red-500 bg-red-100 rounded-md"
-      >
-        {{ errorMessage }}
-      </div>
-      <div>
-        <label for="username" class="block text-sm font-medium text-gray-700"
-          >Username</label
+<div
+  class="min-h-screen flex flex-col items-center justify-center py-6 px-4 bg-cover bg-center bg-no-repeat"
+  style="background-image: url('background.png')"
+>
+  <div
+    class="grid md:grid-cols-1 lg:grid-cols-2 items-center gap-4 max-w-6xl w-full"
+  >
+    <div
+      class="border border-secondary rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] mx-auto bg-white dark:bg-dark-background"
+    >
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div class="mb-8">
+          <h3
+            class="text-primary text-4xl font-extrabold text-center dark:text-dark-primary"
+          >
+            PetCalendar
+          </h3>
+          <p class="text-text text-sm mt-4 leading-relaxed dark:text-dark-text">
+            Inicia sesión en tu cuenta y lleva el control de tus mascotas al
+            siguiente nivel.
+          </p>
+        </div>
+        <div
+          *ngIf="errorMessage"
+          class="p-2 text-sm text-red-500 bg-red-100 rounded-md"
         >
-        <input
-          type="text"
-          id="username"
-          formControlName="username"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="your-username"
-        />
-      </div>
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700"
-          >Password</label
-        >
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="********"
-        />
-      </div>
-      <div>
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid"
-          class="w-full py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-          Log In
-        </button>
-      </div>
-    </form>
+          {{ errorMessage }}
+        </div>
+
+        <div>
+          <label class="text-text text-sm mb-2 block dark:text-dark-text">
+            Nombre de usuario
+          </label>
+          <div class="relative flex items-center">
+            <input
+              name="username"
+              type="text"
+              required
+              class="w-full text-sm text-text border border-secondary px-4 py-3 rounded-lg outline-primary dark:text-dark-text dark:border-dark-secondary dark:bg-dark-background"
+              placeholder="Username"
+            />
+            <fa-icon
+              [icon]="['fas', 'user']"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400"
+            ></fa-icon>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-text text-sm mb-2 block dark:text-dark-text">
+            Contraseña
+          </label>
+          <div class="relative flex items-center">
+            <input
+              name="password"
+              [type]="passwordVisible ? 'text' : 'password'"
+              required
+              class="w-full text-sm text-text border border-secondary px-4 py-3 rounded-lg outline-primary dark:text-dark-text dark:border-dark-secondary dark:bg-dark-background"
+              placeholder="******"
+            />
+            <fa-icon
+              [icon]="passwordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+              (click)="togglePasswordVisibility()"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
+            ></fa-icon>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-end gap-4">
+          <div class="text-sm">
+            <a
+              href="javascript:void(0);"
+              class="text-primary hover:underline font-semibold dark:text-dark-secondary"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+        </div>
+
+        <div class="!mt-8">
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid"
+            class="w-full shadow-xl py-3 px-4 text-md tracking-wide rounded-lg text-white bg-primary hover:bg-secondary focus:outline-none dark:bg-dark-primary dark:hover:bg-dark-secondary"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+
+        <p class="text-sm !mt-8 text-center text-text dark:text-dark-text">
+          Aún no tengo una cuenta
+          <a
+            href="javascript:void(0);"
+            class="text-primary font-semibold hover:underline ml-1 whitespace-nowrap dark:text-dark-secondary"
+          >
+            Regístrate aquí
+          </a>
+        </p>
+      </form>
+    </div>
+
+    <div class="lg:block hidden">
+      <img
+        src="login.jpg"
+        class="w-full h-full object-cover rounded-full shadow-lg shadow-pink-200"
+        alt="Login PetCalendar"
+      />
+    </div>
   </div>
 </div>

@@ -8,6 +8,8 @@ import {
   faPaw,
   faSun,
   faUser,
+  faEye,
+  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import { faAngular } from '@fortawesome/free-brands-svg-icons';
 
@@ -21,4 +23,6 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faBars,
   faLeaf,
   faAngular,
+  faEye,
+  faEyeSlash,
 ];

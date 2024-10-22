@@ -11,8 +11,8 @@ module.exports = {
         // Colores para el tema claro
         background: "#ffffff",
         text: "#333333",
-        primary: "#1C7C54",
-        secondary: "#ECC8AF",
+        primary: "#E692A2",
+        secondary: "#A2D2FF",
 
         // Colores para el tema oscuro (usando 'dark:' para especificar el modo oscuro)
         dark: {
