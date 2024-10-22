@@ -1,23 +1,27 @@
 <div
-  class="min-h-screen flex flex-col items-center justify-center py-6 px-4 bg-cover bg-center bg-no-repeat"
+  class="min-h-screen flex items-center justify-center py-6 px-4 bg-cover bg-center bg-no-repeat"
   style="background-image: url('background.png')"
 >
   <div
-    class="grid md:grid-cols-1 lg:grid-cols-2 items-center gap-4 max-w-6xl w-full"
+    class="items-center gap-4 max-w-xl w-full bg-white/60 dark:bg-dark-background/80 p-4 rounded-lg shadow-lg"
   >
     <div
       class="border border-secondary rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] mx-auto bg-white dark:bg-dark-background"
     >
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        class="space-y-4"
+      >
         <div class="mb-8">
           <h3
             class="text-primary text-4xl font-extrabold text-center dark:text-dark-primary"
           >
-            PetCalendar
+            Regístrate en PetCalendar
           </h3>
           <p class="text-text text-sm mt-4 leading-relaxed dark:text-dark-text">
-            Inicia sesión en tu cuenta y lleva el control de tus mascotas al
-            siguiente nivel.
+            ¡Crea tu cuenta y descubre una forma más sencilla de gestionar el
+            bienestar de tus fieles compañeros!
           </p>
         </div>
         <div
@@ -48,6 +52,25 @@
 
         <div>
           <label class="text-text text-sm mb-2 block dark:text-dark-text">
+            Email
+          </label>
+          <div class="relative flex items-center">
+            <input
+              name="email"
+              type="email"
+              required
+              class="w-full text-sm text-text border border-secondary px-4 py-3 rounded-lg outline-primary dark:text-dark-text dark:border-dark-secondary dark:bg-dark-background"
+              placeholder="example@example.com"
+            />
+            <fa-icon
+              [icon]="['fas', 'envelope']"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400"
+            ></fa-icon>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-text text-sm mb-2 block dark:text-dark-text">
             Contraseña
           </label>
           <div class="relative flex items-center">
@@ -66,45 +89,48 @@
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-end gap-4">
-          <div class="text-sm">
-            <a
-              href="javascript:void(0);"
-              class="text-primary hover:underline font-semibold dark:text-dark-secondary"
-            >
-              ¿Olvidaste tu contraseña?
-            </a>
+        <div>
+          <label class="text-text text-sm mb-2 block dark:text-dark-text">
+            Confirmar contraseña
+          </label>
+          <div class="relative flex items-center">
+            <input
+              name="confirmPassword"
+              [type]="confirmPasswordVisible ? 'text' : 'password'"
+              required
+              class="w-full text-sm text-text border border-secondary px-4 py-3 rounded-lg outline-primary dark:text-dark-text dark:border-dark-secondary dark:bg-dark-background"
+              placeholder="******"
+            />
+            <fa-icon
+              [icon]="
+                confirmPasswordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']
+              "
+              (click)="toggleConfirmPasswordVisibility()"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
+            ></fa-icon>
           </div>
         </div>
 
         <div class="!mt-8">
           <button
             type="submit"
-            [disabled]="loginForm.invalid"
+            [disabled]="registerForm.invalid"
             class="w-full shadow-xl py-3 px-4 text-md tracking-wide rounded-lg text-white bg-primary hover:bg-secondary focus:outline-none dark:bg-dark-primary dark:hover:bg-dark-secondary"
           >
-            Iniciar sesión
+            Regístrate
           </button>
         </div>
 
         <p class="text-sm !mt-8 text-center text-text dark:text-dark-text">
-          Aún no tengo una cuenta
+          ¿Ya tienes una cuenta?
           <a
-            routerLink="/register"
+            routerLink="/login"
             class="text-primary font-semibold hover:underline ml-1 whitespace-nowrap dark:text-dark-secondary"
           >
-            Regístrate aquí
+            Inicia sesión aquí
           </a>
         </p>
       </form>
-    </div>
-
-    <div class="lg:block hidden">
-      <img
-        src="login.jpg"
-        class="w-full h-full object-cover rounded-full shadow-lg shadow-pink-200"
-        alt="Login PetCalendar"
-      />
     </div>
   </div>
 </div>

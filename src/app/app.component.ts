@@ -6,12 +6,11 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fontAwesomeIcons } from './shared/font-awesome-icons';
-import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FontAwesomeModule, LoginComponent],
+  imports: [RouterOutlet, FontAwesomeModule],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

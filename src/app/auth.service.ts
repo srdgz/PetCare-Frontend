@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth/login';
+  private apiUrlLogin = 'http://localhost:8080/api/auth/login';
+  private apiUrlRegister = 'http://localhost:8080/api/auth/register';
 
   constructor(private http: HttpClient) {}
 
@@ -14,6 +15,13 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = JSON.stringify({ username, password });
 
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    return this.http.post<any>(this.apiUrlLogin, body, { headers });
+  }
+
+  register(username: string, email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify({ username, email, password });
+
+    return this.http.post<any>(this.apiUrlRegister, body, { headers });
   }
 }
