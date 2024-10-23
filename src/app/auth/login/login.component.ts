@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -42,7 +42,6 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-
       this.authService.login(username, password).subscribe({
         next: (response) => {
           console.log('Login successful', response);
@@ -51,7 +50,8 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Login failed', error);
-          this.errorMessage = 'Invalid email or password. Please try again.';
+          this.errorMessage =
+            'Error al iniciar sesión. Por favor, completa los campos correctamente.';
         },
       });
     }

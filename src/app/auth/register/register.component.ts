@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -9,7 +10,18 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
+
+export function passwordMatchValidator(
+  control: AbstractControl
+): { [key: string]: boolean } | null {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+  if (password !== confirmPassword) {
+    return { passwordMismatch: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-register',
@@ -24,6 +36,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
+  [x: string]: any;
   registerForm: FormGroup;
   errorMessage: string | null = null;
   passwordVisible: boolean = false;
@@ -34,12 +47,15 @@ export class RegisterComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-    });
+    this.registerForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: passwordMatchValidator }
+    );
   }
 
   togglePasswordVisibility() {
@@ -59,8 +75,9 @@ export class RegisterComponent {
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          this.errorMessage = error.error.message || 'Error al registrar';
           console.error('Error de registro:', error);
+          this.errorMessage =
+            error.error.message || 'Error al registrar. Revisa los campos.';
         },
       });
     }

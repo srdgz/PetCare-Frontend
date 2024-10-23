@@ -37,6 +37,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="username"
               name="username"
               type="text"
               required
@@ -48,6 +49,16 @@
               class="w-[18px] h-[18px] absolute right-4 text-gray-400"
             ></fa-icon>
           </div>
+          <div
+            *ngIf="
+              registerForm.get('username')?.invalid &&
+              (registerForm.get('username')?.touched ||
+                registerForm.get('username')?.dirty)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            El nombre de usuario es requerido.
+          </div>
         </div>
 
         <div>
@@ -56,6 +67,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="email"
               name="email"
               type="email"
               required
@@ -67,6 +79,21 @@
               class="w-[18px] h-[18px] absolute right-4 text-gray-400"
             ></fa-icon>
           </div>
+          <div
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              (registerForm.get('email')?.touched ||
+                registerForm.get('email')?.dirty)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <p *ngIf="registerForm.get('email')?.errors?.['required']">
+              El correo electrónico es obligatorio.
+            </p>
+            <p *ngIf="registerForm.get('email')?.errors?.['email']">
+              Por favor, introduce un correo electrónico válido.
+            </p>
+          </div>
         </div>
 
         <div>
@@ -75,6 +102,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="password"
               name="password"
               [type]="passwordVisible ? 'text' : 'password'"
               required
@@ -95,6 +123,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="confirmPassword"
               name="confirmPassword"
               [type]="confirmPasswordVisible ? 'text' : 'password'"
               required
@@ -108,6 +137,12 @@
               (click)="toggleConfirmPasswordVisibility()"
               class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
             ></fa-icon>
+          </div>
+          <div
+            *ngIf="registerForm.errors?.['passwordMismatch'] && (registerForm.touched || registerForm.dirty)"
+            class="text-red-500 text-sm mt-1"
+          >
+            Las contraseñas no coinciden.
           </div>
         </div>
 

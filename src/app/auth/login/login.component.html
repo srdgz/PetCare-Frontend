@@ -33,6 +33,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="username"
               name="username"
               type="text"
               required
@@ -44,6 +45,16 @@
               class="w-[18px] h-[18px] absolute right-4 text-gray-400"
             ></fa-icon>
           </div>
+          <div
+            *ngIf="
+              loginForm.get('username')?.invalid &&
+              (loginForm.get('username')?.touched ||
+                loginForm.get('username')?.dirty)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            El nombre de usuario es requerido.
+          </div>
         </div>
 
         <div>
@@ -52,6 +63,7 @@
           </label>
           <div class="relative flex items-center">
             <input
+              formControlName="password"
               name="password"
               [type]="passwordVisible ? 'text' : 'password'"
               required
@@ -64,16 +76,20 @@
               class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
             ></fa-icon>
           </div>
-        </div>
-
-        <div class="flex flex-wrap items-center justify-end gap-4">
-          <div class="text-sm">
-            <a
-              href="javascript:void(0);"
-              class="text-primary hover:underline font-semibold dark:text-dark-secondary"
-            >
-              ¿Olvidaste tu contraseña?
-            </a>
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              (loginForm.get('password')?.touched ||
+                loginForm.get('password')?.dirty)
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <div *ngIf="loginForm.get('password')?.hasError('required')">
+              La contraseña es requerida.
+            </div>
+            <div *ngIf="loginForm.get('password')?.hasError('minlength')">
+              La contraseña debe tener al menos 6 caracteres.
+            </div>
           </div>
         </div>
 
