@@ -4,6 +4,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './dashboard/pages/user-profile/user-profile.component';
 import { ErrorPageComponent } from './dashboard/pages/error-page/error-page.component';
+import { HomeComponent } from './dashboard/pages/home/home.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,7 +14,9 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: 'user/:id', component: UserProfileComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'user', component: UserProfileComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', component: ErrorPageComponent },
     ],
   },
