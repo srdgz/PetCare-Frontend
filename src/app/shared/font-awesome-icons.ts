@@ -11,6 +11,8 @@ import {
   faEye,
   faEyeSlash,
   faEnvelope,
+  faNewspaper,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { faAngular } from '@fortawesome/free-brands-svg-icons';
 
@@ -27,4 +29,6 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faEye,
   faEyeSlash,
   faEnvelope,
+  faNewspaper,
+  faRightFromBracket,
 ];

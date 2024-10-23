@@ -1,6 +1,6 @@
 <!-- Navbar Superior -->
 <nav
-  class="flex justify-between items-center p-4 bg-primary dark:bg-dark-background text-white dark:text-dark-text lg:hidden"
+  class="flex justify-between items-center p-4 bg-secondary dark:bg-dark-background text-primary dark:text-dark-primary lg:hidden"
 >
   <div class="flex items-center">
     <span class="text-2xl font-bold">PetCalendar</span>
@@ -15,66 +15,27 @@
   <div
     *ngIf="isDropdownOpen"
     id="dropdown-menu"
-    class="absolute right-4 mt-80 w-52 bg-primary rounded-lg shadow-lg dark:bg-dark-background z-10"
+    class="absolute right-4 top-20 w-52 bg-secondary rounded-lg shadow-lg dark:bg-dark-background z-10"
   >
     <ul class="py-4">
       <li class="flex justify-end me-4 mb-2">
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            class="sr-only peer"
-            [checked]="isDarkMode"
-            (change)="toggleTheme()"
-          />
-          <div
-            class="w-11 h-6 bg-background peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer dark:peer-focus:ring-dark-secondary dark:bg-gray-700 peer-checked:bg-primary dark:peer-checked:bg-dark-secondary transition-all duration-300"
-          ></div>
-          <span
-            class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full peer-checked:translate-x-full peer-checked:border-white transition-transform duration-300 flex items-center justify-center"
-          >
-            <fa-icon
-              *ngIf="!isDarkMode"
-              [icon]="['fas', 'sun']"
-              class="text-text"
-            ></fa-icon>
-            <fa-icon
-              *ngIf="isDarkMode"
-              [icon]="['fas', 'moon']"
-              class="text-text"
-            ></fa-icon>
-          </span>
-        </label>
+        <app-theme-toggle></app-theme-toggle>
       </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-white font-semibold hover:bg-secondary/50 dark:text-dark-text dark:hover:bg-dark-primary/70"
-          (click)="closeDropdown()"
-          >Inicio</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-white font-semibold hover:bg-secondary/50 dark:text-dark-text dark:hover:bg-dark-primary/70"
-          (click)="closeDropdown()"
-          >Mis mascotas</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-white font-semibold hover:bg-secondary/50 dark:text-dark-text dark:hover:bg-dark-primary/70"
-          (click)="closeDropdown()"
-          >Configuración</a
-        >
-      </li>
+      <app-menu-items
+        *ngFor="let item of navItems"
+        [link]="item.link"
+        [icon]="item.icon"
+        [label]="item.label"
+        [closeDropdown]="closeDropdown"
+      ></app-menu-items>
+      <hr class="border-t border-gray-100 dark:border-gray-500 my-2" />
       <li>
         <button
-          class="block px-4 py-2 text-white font-semibold hover:bg-secondary/50 dark:text-dark-text dark:hover:bg-dark-primary/70"
+          class="block px-4 py-2 text-white font-semibold hover:text-primary dark:text-dark-text dark:hover:text-dark-primary"
           (click)="logoutAndCloseDropdown()"
         >
-          Cerrar sesión
+          <fa-icon [icon]="['fas', 'right-from-bracket']"></fa-icon>
+          <span class="flex-1 ms-3">Cerrar sesión</span>
         </button>
       </li>
     </ul>
@@ -84,74 +45,29 @@
 <!-- Sidebar -->
 <aside
   *ngIf="isLargeScreen"
-  class="flex flex-col h-screen z-40 w-64 bg-primary dark:bg-dark-background transition-transform pb-24"
+  class="flex flex-col h-screen z-40 w-64 bg-secondary dark:bg-dark-background transition-transform pb-24 rounded-e-full"
 >
-  <div class="flex items-center justify-between p-4 mb-4">
-    <h1 class="text-2xl font-bold text-white dark:text-dark-text">
+  <div class="flex items-center justify-between p-8 my-28">
+    <h1 class="text-3xl font-bold text-primary dark:text-dark-primary">
       PetCalendar
     </h1>
   </div>
   <div class="flex-1 p-4">
     <ul class="space-y-2 font-medium">
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-white dark:text-dark-text rounded-lg hover:bg-secondary/50 dark:hover:bg-dark-primary/70 transition duration-200"
-        >
-          <fa-icon [icon]="['fas', 'home']"></fa-icon>
-          <span class="ms-3">Inicio</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-white dark:text-dark-text rounded-lg hover:bg-secondary/50 dark:hover:bg-dark-primary/70 transition duration-200"
-        >
-          <fa-icon [icon]="['fas', 'paw']"></fa-icon>
-          <span class="flex-1 ms-3">Mis mascotas</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-white dark:text-dark-text rounded-lg hover:bg-secondary/50 dark:hover:bg-dark-primary/70 transition duration-200"
-        >
-          <fa-icon [icon]="['fas', 'gear']"></fa-icon>
-          <span class="flex-1 ms-3">Configuración</span>
-        </a>
-      </li>
+      <app-menu-items
+        *ngFor="let item of navItems"
+        [link]="item.link"
+        [icon]="item.icon"
+        [label]="item.label"
+      ></app-menu-items>
     </ul>
   </div>
-  <div class="p-4">
-    <label class="relative inline-flex items-center cursor-pointer">
-      <input
-        type="checkbox"
-        class="sr-only peer"
-        [checked]="isDarkMode"
-        (change)="toggleTheme()"
-      />
-      <div
-        class="w-11 h-6 bg-secondary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer dark:peer-focus:ring-dark-secondary dark:bg-gray-700 peer-checked:bg-primary dark:peer-checked:bg-dark-secondary transition-all duration-300"
-      ></div>
-      <span
-        class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full peer-checked:translate-x-full peer-checked:border-white transition-transform duration-300 flex items-center justify-center"
-      >
-        <fa-icon
-          *ngIf="!isDarkMode"
-          [icon]="['fas', 'sun']"
-          class="text-text"
-        ></fa-icon>
-        <fa-icon
-          *ngIf="isDarkMode"
-          [icon]="['fas', 'moon']"
-          class="text-text"
-        ></fa-icon>
-      </span>
-    </label>
+  <div class="p-8">
+    <app-theme-toggle></app-theme-toggle>
   </div>
-  <div class="p-4 mt-4">
+  <div class="p-8 my-28">
     <button
-      class="w-full py-2 px-4 font-semibold text-white bg-secondary dark:bg-dark-secondary rounded-lg transition duration-200"
+      class="w-40 py-2 px-4 font-semibold text-white bg-primary dark:bg-dark-primary rounded-lg transition duration-200"
       (click)="logout()"
     >
       Cerrar sesión

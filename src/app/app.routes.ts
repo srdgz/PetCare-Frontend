@@ -7,15 +7,15 @@ import { ErrorPageComponent } from './dashboard/pages/error-page/error-page.comp
 import { HomeComponent } from './dashboard/pages/home/home.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'user', component: UserProfileComponent },
+      { path: 'user-profile', component: UserProfileComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', component: ErrorPageComponent },
     ],
