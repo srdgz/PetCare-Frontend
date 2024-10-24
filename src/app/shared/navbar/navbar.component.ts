@@ -65,9 +65,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
-    console.log('Logged out and redirected to login');
   }
 
   logoutAndCloseDropdown() {
