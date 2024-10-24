@@ -1,29 +1,73 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    FontAwesomeModule,
+  ],
   templateUrl: './user-profile.component.html',
 })
-export class UserProfileComponent {
-  formData = {
-    newPassword: '',
-    confirmPassword: '',
-  };
+export class UserProfileComponent implements OnInit {
+  profileForm!: FormGroup;
   avatarUrl: string | ArrayBuffer | null = null;
   username: string = '';
   email: string = '';
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit() {
+    this.initializeForm();
     this.loadUserProfile();
+  }
+
+  initializeForm() {
+    this.profileForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.minLength(6)]],
+        confirmPassword: [''],
+      },
+      { validators: this.passwordsMatch }
+    );
+  }
+
+  passwordsMatch(formGroup: FormGroup) {
+    const newPassword = formGroup.get('newPassword')?.value;
+    const confirmPasswordControl = formGroup.get('confirmPassword');
+
+    if (newPassword !== confirmPasswordControl?.value) {
+      confirmPasswordControl?.setErrors({ passwordMismatch: true });
+    } else {
+      confirmPasswordControl?.setErrors(null);
+    }
+
+    return null;
+  }
+
+  toggleNewPasswordVisibility() {
+    this.showNewPassword = !this.showNewPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   loadUserProfile() {
@@ -56,8 +100,8 @@ export class UserProfileComponent {
   }
 
   handleSubmit() {
-    if (this.formData.newPassword !== this.formData.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+    if (this.profileForm.invalid) {
+      alert('Por favor, corrija los errores en el formulario');
       return;
     }
 
@@ -67,8 +111,8 @@ export class UserProfileComponent {
       updatedData.avatar = this.avatarUrl;
     }
 
-    if (this.formData.newPassword) {
-      updatedData.password = this.formData.newPassword;
+    if (this.profileForm.get('newPassword')?.value) {
+      updatedData.password = this.profileForm.get('newPassword')?.value;
     }
 
     this.userService.updateUserProfile(updatedData).subscribe({

@@ -14,7 +14,11 @@
         aquí puedes modificar tu perfil
       </h3>
 
-      <form (ngSubmit)="handleSubmit()" class="space-y-8">
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="handleSubmit()"
+        class="space-y-8"
+      >
         <div class="text-center">
           <div class="relative inline-block">
             <img
@@ -58,23 +62,53 @@
           <label class="block mb-2 text-gray-700 dark:text-dark-text"
             >Nueva Contraseña</label
           >
-          <input
-            type="password"
-            name="newPassword"
-            [(ngModel)]="formData.newPassword"
-            class="border dark:bg-gray-700 border-gray-300 p-2 rounded w-full max-w-md text-gray-600 dark:text-dark-text focus:outline-none"
-          />
+          <div class="relative flex items-center">
+            <input
+              formControlName="newPassword"
+              [type]="showNewPassword ? 'text' : 'password'"
+              name="newPassword"
+              placeholder="******"
+              class="border dark:bg-gray-700 border-gray-300 p-2 rounded w-full max-w-md text-gray-600 dark:text-dark-text focus:outline-none"
+            />
+            <fa-icon
+              [icon]="showNewPassword ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+              (click)="toggleNewPasswordVisibility()"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
+            ></fa-icon>
+          </div>
+          <div
+            *ngIf="profileForm.get('newPassword')?.errors?.['minlength'] && profileForm.get('newPassword')?.touched"
+            class="text-red-500 text-sm mt-1"
+          >
+            La contraseña debe tener al menos 6 caracteres.
+          </div>
         </div>
         <div>
           <label class="block mb-2 text-gray-700 dark:text-dark-text"
             >Confirmar Contraseña</label
           >
-          <input
-            type="password"
-            name="confirmPassword"
-            [(ngModel)]="formData.confirmPassword"
-            class="border dark:bg-gray-700 border-gray-300 p-2 rounded w-full max-w-md text-gray-600 dark:text-dark-text focus:outline-none"
-          />
+          <div class="relative flex items-center">
+            <input
+              formControlName="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              name="confirmPassword"
+              placeholder="******"
+              class="border dark:bg-gray-700 border-gray-300 p-2 rounded w-full max-w-md text-gray-600 dark:text-dark-text focus:outline-none"
+            />
+            <fa-icon
+              [icon]="
+                showConfirmPassword ? ['fas', 'eye-slash'] : ['fas', 'eye']
+              "
+              (click)="toggleConfirmPasswordVisibility()"
+              class="w-[18px] h-[18px] absolute right-4 text-gray-400 cursor-pointer"
+            ></fa-icon>
+          </div>
+          <div
+            *ngIf="profileForm.get('confirmPassword')?.errors?.['passwordMismatch'] && profileForm.get('confirmPassword')?.touched"
+            class="text-red-500 text-sm mt-1"
+          >
+            Las contraseñas no coinciden.
+          </div>
         </div>
         <div class="flex justify-end gap-8 items-start">
           <button
